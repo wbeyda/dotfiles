@@ -1,0 +1,58 @@
+*foreground:   #c5c8c6
+*background:   #222222
+*cursorColor:  #c5c8c6
+*color0:       #212d32
+*color8:       #37474f
+*color1:       #ec5f67
+*color9:       #f77669
+*color2:       #8bd649
+*color10:      #c3e88d
+*color3:       #f1e655
+*color11:      #f8e71c
+*color4:       #85678f
+*color12:      #5f819d
+*color5:       #7986cb
+*color13:      #82b1ff
+*color6:       #5c7e8c
+*color14:      #80cbc4
+*color7:       #707880
+*color15:      #cdd3de
+URxvt*termName: screen-256color
+URxvt*geometry: 240x84
+URxvt*loginShell: true
+URxvt*scrollColor: #999999
+URxvt*scrollstyle: plain
+URxvt*scrollTtyKeypress: true
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: false
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: true
+URxvt*skipScroll: true
+URxvt*scrollBar: true 
+URxvt*scrollBar_right: true 
+URxvt*scrollBar_floating: false
+URxvt*fading: 30
+URxvt*utmpInhibit: false
+URxvt*urgentOnBell: false
+URxvt*mapAlert: true
+URxvt*mouseWheelScrollPage: true
+#urxvt*font: xft:Terminess\ Powerline:size=15
+#urxvt*boldFont: xft:Terminess\ Powerline:size=15
+urxvt*font: xft:Terminess\ Powerline:size=19
+urxvt*boldFont: xft:Terminess\ Powerline:size=19
+
+!urxvt*font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:antialias=true:size=13
+!urxvt.font: xft:Roboto\ Mono\ Light\ for\ Powerline:pixelsize=15
+URxvt*saveLines: 0
+URxvt*buffered: true
+URxvt*hold: false
+URxvt*internalBorder:
+URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
+!Perl extensions
+URxvt.perl-ext-common: default,matcher,tabbed,fullscreen,font-size
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.colorUL: #4682B4
+URxvt.keysym.F11: perl:fullscreen:switch
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger: C-Up
