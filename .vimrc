@@ -130,6 +130,7 @@ set title
 set colorcolumn=120
 " Some syntax files suck
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=#ffd9d9
+hi Search ctermfg=15 ctermbg=204 guifg=#ffffff guibg=#ff5f87
 
 " Taken From http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
 autocmd FileType python highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9

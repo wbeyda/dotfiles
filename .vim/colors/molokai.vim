@@ -22,7 +22,6 @@ hi ColorColumn                   guibg=#232728
 hi LineNr          guifg=#AAAAAA guibg=#ffd9d9
 hi FoldColumn      guifg=#AAAAAA guibg=bg
 hi VertSplit       guifg=#AAAAAA guibg=bg gui=none
-hi Search          guifg=#000000 guibg=#E4E500
 hi IncSearch       guibg=#000000 guifg=#FF8D00
 " }}}
 " Syntax {{{
@@ -189,8 +188,6 @@ if &t_Co > 255
    hi PreProc         ctermfg=118
    hi Question        ctermfg=81
    hi Repeat          ctermfg=161               cterm=bold
-   hi Search          ctermfg=253 ctermbg=66
-
    " marks column
    hi SignColumn      ctermfg=118 ctermbg=235
    hi SpecialChar     ctermfg=161               cterm=bold
