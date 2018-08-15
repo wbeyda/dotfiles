@@ -21,32 +21,29 @@ URxvt*termName: screen-256color
 URxvt*geometry: 240x84
 URxvt*loginShell: true
 URxvt*scrollColor: #999999
-URxvt*scrollstyle: plain
-URxvt*scrollTtyKeypress: true
+URxvt*scrollstyle: plain 
 URxvt*scrollTtyOutput: false
-URxvt*scrollWithBuffer: false
-URxvt*secondaryScreen: true
-URxvt*secondaryScroll: true
+URxvt*scrollWithBuffer: true 
+URxvt*scrollTtyKeypress: true
+URxvt*secondaryScreen: 1
+URxvt*secondaryScroll: 1 
 URxvt*skipScroll: true
-URxvt*scrollBar: true 
+URxvt*scrollBar: true
 URxvt*scrollBar_right: true 
-URxvt*scrollBar_floating: false
+URxvt*scrollBar_floating: true
 URxvt*fading: 30
 URxvt*utmpInhibit: false
 URxvt*urgentOnBell: false
 URxvt*mapAlert: true
 URxvt*mouseWheelScrollPage: true
-#urxvt*font: xft:Terminess\ Powerline:size=15
-#urxvt*boldFont: xft:Terminess\ Powerline:size=15
-urxvt*font: xft:Terminess\ Powerline:size=19
-urxvt*boldFont: xft:Terminess\ Powerline:size=19
+!urxvt*font: xft:Terminess\ Powerline:size=12
+!urxvt*boldFont: xft:Terminess\ Powerline:size=12
 
 !urxvt*font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:antialias=true:size=13
-!urxvt.font: xft:Roboto\ Mono\ Light\ for\ Powerline:pixelsize=15
-URxvt*saveLines: 0
+urxvt.font: xft:Roboto\ Mono\ Light\ for\ Powerline:pixelsize=18
+URxvt*saveLines: 5000
 URxvt*buffered: true
 URxvt*hold: false
-URxvt*internalBorder:
 URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
 !Perl extensions
 URxvt.perl-ext-common: default,matcher,tabbed,fullscreen,font-size
