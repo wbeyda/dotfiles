@@ -42,7 +42,15 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'tpope/vim-surround'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'posva/vim-vue'
+Plugin 'nikvdp/ejs-syntax'
 Plugin 'nvie/vim-flake8'
+Plugin 'prettier/vim-prettier'
+Plugin 'gregsexton/MatchTag'
+Plugin 'bilalq/lite-dfm'
+Plugin 'junegunn/limelight.vim'
+Plugin 'tomlion/vim-solidity'
+Plugin 'RRethy/vim-illuminate'
+Plugin 'IN3D/vim-raml'
 
 call vundle#end()
 filetype indent plugin on
@@ -72,7 +80,7 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autowrite
 autocmd! bufwritepost vimrc source ~/.vimrc
-set tabstop=8 
+set tabstop=4 
 set softtabstop=4
 set expandtab 
 set shiftwidth=4 
@@ -153,9 +161,14 @@ if !exists("g:ycm_semantic_triggers")
 endif
     let g:ycm_semantic_triggers['typescript'] = ['.']
 let g:ycm_python_binary_path = 'python'
-left g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_min_num_of_chars_for_completion = 4
+let g:ycm_min_num_identifier_candidate_chars = 4
+let g:ycm_enable_diagnostic_highlighting = 0
+
 set tags=tags
 let g:jedi#completions_enabled=1
+let g:Illuminate_delay = 250
 " Make vim use normal regex 
 nnoremap / /\v
 vnoremap / /\v
@@ -182,6 +195,8 @@ inoremap jj <ESC>
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " space+ev open vimrc file
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" toggle LiteDFMToggle
+nnoremap <Leader>z :LiteDFMToggle<CR>
 
 function! DoPrettyXML()
     " save the filetype so we can restore it later
