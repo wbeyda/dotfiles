@@ -51,6 +51,7 @@ Plugin 'junegunn/limelight.vim'
 Plugin 'tomlion/vim-solidity'
 Plugin 'RRethy/vim-illuminate'
 Plugin 'IN3D/vim-raml'
+Plugin 'vim-vdebug/vdebug'
 
 call vundle#end()
 filetype indent plugin on
@@ -197,6 +198,11 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " toggle LiteDFMToggle
 nnoremap <Leader>z :LiteDFMToggle<CR>
+" vdebug settings
+let g:vdebug_options = {}
+let g:vdebug_options["port"] = 9100
+" let g:vdebug_options["server"] = '192.168.33.20'
+let g:vdebug_options["server"] = ''
 
 function! DoPrettyXML()
     " save the filetype so we can restore it later
