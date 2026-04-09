@@ -37,13 +37,13 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -55,8 +55,6 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
-
-PROMPT_DIRTRIM=3
 
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -86,6 +84,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+export PS1="\[\e[32m\]\u\[\e[m\]\[\e[35m\]@\[\e[m\]\[\e[36m\]\h\[\e[m\]\[\e[31m\]:\[\e[33m\]\w\[\e[m\]\[\e[35m\]\\$\[\e[m\] "
+
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -114,6 +118,127 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+. "$HOME/.cargo/env"
 
-# alias neovim to vim
-#alias vim='nvim'
+bind -s 'set completion-ignore-case on'
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then 
+    eval "$(pyenv init -)" 
+fi
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init --path)"
+
+source $HOME/.cargo/env
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/me/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/me/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/me/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/me/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+work() {
+  PROJECT_ROOT="/home/me/Projects/trashenv"
+  APP_DIR="$PROJECT_ROOT/trashpanda"
+  FRONTEND_DIR="$APP_DIR/frontend"
+  ENV_ACTIVATE="$PROJECT_ROOT/bin/activate"
+  SSH_KEY="$HOME/.ssh/trash.pem"
+  AWS_USER="bitnami"
+  AWS_IP="35.166.29.117"
+
+  COMMON_SETUP="cd \"$APP_DIR\" && source \"$ENV_ACTIVATE\""
+
+  if [[ "$1" == "-a" ]]; then
+    echo "Launching all processes in new Kitty tabs..."
+
+    # 1. Frontend
+    kitty @ launch --type=tab --title "Frontend" bash -ic "
+      $COMMON_SETUP &&
+      cd frontend &&
+      echo -ne '\033]2;⚛️ Frontend - NextJS 🚀\007' &&
+      npm run dev
+    "
+
+    # 2. Backend
+    kitty @ launch --type=tab --title "Backend" bash -ic "
+      $COMMON_SETUP &&
+      echo -ne '\033]2;🐍 Backend - Django 📡\007' &&
+      ./manage.py runserver 8001
+    "
+
+    # 3. SSH
+    kitty @ launch --type=tab --title "SSH to AWS" bash -ic "
+      ssh -i \"$SSH_KEY\" $AWS_USER@$AWS_IP
+    "
+
+    # 4. VSCode
+    kitty @ launch --type=tab --title "VSCode" bash -ic "
+      cd \"$APP_DIR\" && code .
+    "
+    # 5. Firefox 
+    kitty @ launch --type=tab --title "Firefox" bash -ic "
+      firefox
+    "
+
+    return
+  fi
+
+  # --- Interactive fallback ---
+  cd "$PROJECT_ROOT" || return
+  source "$ENV_ACTIVATE"
+  cd "$APP_DIR" || return
+
+  echo "What type of work is it?"
+  echo "1. Frontend work"
+  echo "2. Backend work"
+  echo "3. SSH to AWS"
+  echo "4. Open VSCode"
+  echo "5. Open Firefox"
+  read -p "Enter your choice (1-5): " choice
+
+  case "$choice" in
+    1)
+      cd frontend || return
+      echo -ne "\033]2;⚛️ Frontend - NextJS 🚀\007"
+      npm run dev
+      ;;
+    2)
+      echo -ne "\033]2;🐍 Backend - Django 📡\007"
+      ./manage.py runserver 8001
+      ;;
+    3)
+      echo "SSH to AWS server"
+      ssh -i "$SSH_KEY" $AWS_USER@$AWS_IP
+      ;;
+    4)
+      echo "Starting VSCode..."
+      code .
+      ;;
+    5)
+      echo "Starting Firefox..."
+      firefox
+      ;;
+    *)
+      echo "Invalid choice or Project Root"
+      ;;
+  esac
+}
+
+export EDITOR='nvim'
+alias fixscarlett='sudo modprobe snd_usb_audio'
